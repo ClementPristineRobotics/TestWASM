@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WebAssembly Demo</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+  <style>
+    #canvas {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').then(function (registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function (err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+
+<body>
+  <div class="body-container">
+
+
+
+    <span id="hs_cos_wrapper_module_1502712469324135"
+      class="hs_cos_wrapper hs_cos_wrapper_widget_container hs_cos_wrapper_type_widget_container"
+      data-hs-cos-general-type="widget_container" data-hs-cos-type="widget_container">
+      <div id="hs_cos_wrapper_widget_1558076337511"
+        class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget"
+        data-hs-cos-type="module"><span id="hs_cos_wrapper_widget_1558076337511_"
+          class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget"
+          data-hs-cos-type="rich_text">
+          <figure id="spinner" style="overflow: visible;">
+            <center style="margin-top: 1.5em; line-height: 150%;"><img src="logo.png" style="display: block;">
+            </center>
+            <div id="status">&nbsp;</div>
+            <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
+          </figure>
+          <canvas id="canvas" style="margin: 0 auto; width: 100%; "></canvas>
+          <script type="text/javascript" src="qtloader.js"></script>
+          <script type="text/javascript">// <![CDATA[
+
+            function init_wasm() {
+              var spinner = document.getElementById('spinner');
+              var canvas = document.getElementById('canvas');
+              var status = document.getElementById('status')
+
+              var qtLoader = _QtLoader({
+                path: '/',
+                showLoader: function (loaderStatus) {
+                  spinner.style.display = 'block';
+                  canvas.style.display = 'none';
+                  status.innerHTML = loaderStatus + "...";
+                },
+                showError: function (errorText) {
+                  status.innerHTML = errorText;
+                  spinner.style.display = 'block';
+                  canvas.style.display = 'none';
+                },
+                showExit: function () {
+                  status.innerHTML = "Application exit";
+                  if (qtLoader.exitCode !== undefined)
+                    status.innerHTML += " with code " + qtLoader.exitCode;
+                  if (qtLoader.exitText !== undefined)
+                    status.innerHTML += " (" + qtLoader.exitText + ")";
+                  spinner.style.display = 'block';
+                  canvas.style.display = 'none';
+                },
+                showCanvas: function () {
+                  spinner.style.display = 'none';
+                  canvas.style.display = 'block';
+                  return canvas;
+                },
+              });
+              qtLoader.loadEmscriptenModule("qmlchart");
+            }
+            // ]]></script>
+
+
+          <script>
+            // run init_wasm() when the page is loaded
+            window.addEventListener('load', function () {
+              init_wasm();
+            });
+          </script>
+        </span>
+      </div>
+    </span>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "SEABER Dashboard",
+  "short_name": "Dashboard",
+  "description": "SEABER Dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#0d47a1",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
